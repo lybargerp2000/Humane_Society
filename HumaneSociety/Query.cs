@@ -169,22 +169,22 @@ namespace HumaneSociety
             switch (crudOperation)
             {
                 case "create":
-                    employee = db.Employees.Where(e => e.);
+                    db.Employees.InsertOnSubmit(employee);
+                    db.SubmitChanges();
                     break;
                 case "read":
-                    employee.Where(e => e.EmployeeId);
+                    Console.WriteLine(employee.EmployeeNumber);
                     break;
                 case "update":
-                    db.Employees.Where(e => e.EmployeeId);
+                    db.Employees.InsertOnSubmit(employee);
+                    db.SubmitChanges();
                     break;
                 case "delete":
-                    db.Employees.Where(e => e.EmployeeId);
+                    db.Employees.DeleteOnSubmit(employee);
+                    db.SubmitChanges();
                     break;
             }
 
-            
-            
-            //throw new NotImplementedException();
         }
 
         // TODO: Animal CRUD Operations
