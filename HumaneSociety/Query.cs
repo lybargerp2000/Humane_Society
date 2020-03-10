@@ -169,10 +169,10 @@ namespace HumaneSociety
             switch (crudOperation)
             {
                 case "create":
-                    db.Employees.Where(e => e.);
+                    employee = db.Employees.Where(e => e.);
                     break;
                 case "read":
-                    db.Employees.Where(e => e.EmployeeId);
+                    employee.Where(e => e.EmployeeId);
                     break;
                 case "update":
                     db.Employees.Where(e => e.EmployeeId);
