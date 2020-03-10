@@ -46,6 +46,11 @@
   <ItemGroup>
     <Compile Include="Admin.cs" />
     <Compile Include="Customer.cs" />
+    <Compile Include="DataClasses1.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataClasses1.dbml</DependentUpon>
+    </Compile>
     <Compile Include="HumaneSociety.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -65,7 +70,15 @@
     <Compile Include="UserInterface.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="app.config" />
+    <None Include="DataClasses1.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>DataClasses1.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataClasses1.dbml.layout">
+      <DependentUpon>DataClasses1.dbml</DependentUpon>
+    </None>
     <None Include="HumaneSociety.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>HumaneSociety.designer.cs</LastGenOutput>
@@ -74,6 +87,7 @@
     <None Include="HumaneSociety.dbml.layout">
       <DependentUpon>HumaneSociety.dbml</DependentUpon>
     </None>
+    <None Include="Properties\App.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
