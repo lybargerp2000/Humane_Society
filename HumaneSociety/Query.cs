@@ -12,7 +12,7 @@ namespace HumaneSociety
 
         static Query()
         {
-            db = new HumaneSocietyDataContext();
+         //   db = new HumaneSocietyDataContext();
         }
 
         internal static List<USState> GetStates()
@@ -166,7 +166,7 @@ namespace HumaneSociety
         // TODO: Allow any of the CRUD operations to occur here
         internal static void RunEmployeeQueries(Employee employee, string crudOperation)
         {
-            employee = db.Employees.
+           // employee = db.Emp
 
             
             
@@ -176,12 +176,15 @@ namespace HumaneSociety
         // TODO: Animal CRUD Operations
         internal static void AddAnimal(Animal animal)
         {
-            throw new NotImplementedException();
+            db.Animals.InsertOnSubmit(animal);
+            db.SubmitChanges();
         }
 
         internal static Animal GetAnimalByID(int id)
         {
-            throw new NotImplementedException();
+            var thing = db.Animals.Where(s => s.AnimalId == id).Single();
+            Console.WriteLine("Animal Info:"+ thing.AnimalId, thing.Category, thing.Age);
+            Console.ReadLine(); return thing;
         }
 
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
@@ -191,7 +194,8 @@ namespace HumaneSociety
 
         internal static void RemoveAnimal(Animal animal)
         {
-            throw new NotImplementedException();
+            db.Animals.DeleteOnSubmit(animal);
+            db.SubmitChanges();
         }
         
         // TODO: Animal Multi-Trait Search
