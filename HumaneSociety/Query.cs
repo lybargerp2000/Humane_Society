@@ -173,12 +173,14 @@ namespace HumaneSociety
                     db.SubmitChanges();
                     break;
                 case "read":
-                    Console.WriteLine(employee.EmployeeNumber);
+                    Console.WriteLine(employee.FirstName,employee.LastName,employee.EmployeeId);           
                     break;
                 case "update":
-                    db.Employees.InsertOnSubmit(employee);
+                    var thing = db.Employees.Where(s => s.EmployeeId == employee.EmployeeId);
+                    thing = employee.;//Finish on Wednesday
                     db.SubmitChanges();
                     break;
+                    //Doule check in morning to ensure old value is removed
                 case "delete":
                     db.Employees.DeleteOnSubmit(employee);
                     db.SubmitChanges();
