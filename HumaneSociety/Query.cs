@@ -201,7 +201,7 @@ namespace HumaneSociety
         internal static Animal GetAnimalByID(int id)
         {
             var thing = db.Animals.Where(s => s.AnimalId == id).SingleOrDefault();
-            Console.WriteLine("Animal Info:" + thing.AnimalId + " " + thing.Name + " " + thing.Category.Name.ToString());
+            
             Console.ReadLine(); return thing;
         }
 
@@ -239,31 +239,10 @@ namespace HumaneSociety
                         animalFromDb.Demeanor = update.Value;
                         break;
                     case 5:
-                        switch (update.Value.ToLower())
-                        {
-                            case "yes":
-                            case "yeah":
-                            case "y":
-                            case "yea":
-                                animalFromDb.KidFriendly = true;
-                                break;
-                            default:
-                                animalFromDb.KidFriendly = false;
-                                break;
-                        } break;
+                        animalFromDb.KidFriendly = Convert.ToBoolean(update.Value);
+                        break;
                     case 6:
-                        switch (update.Value.ToLower())
-                        {
-                            case "yes":
-                            case "yeah":
-                            case "y":
-                            case "yea":
-                                animalFromDb.PetFriendly = true;
-                                break;
-                            default:
-                                animalFromDb.PetFriendly = false;
-                                break;
-                        }
+                        animalFromDb.PetFriendly = Convert.ToBoolean(update.Value);
                         break;
                     case 7:
                         animalFromDb.Weight = int.Parse(update.Value);
@@ -274,8 +253,7 @@ namespace HumaneSociety
             }
 
             db.SubmitChanges();
-        } 
-
+        }
         internal static void RemoveAnimal(Animal animal)
         {
             db.Animals.DeleteOnSubmit(animal);
@@ -333,10 +311,10 @@ namespace HumaneSociety
                         return thing;
 
                 }
-                return null;
+                return thing;
                 
             }
-            return null;
+            return thing;
 
         }
          
@@ -393,22 +371,34 @@ namespace HumaneSociety
         // TODO: Adoption CRUD Operations
         internal static void Adopt(Animal animal, Client client)
         {
-            throw new NotImplementedException();
+            Adoption adoption= new Adoption();
+            adoption.AdoptionFee = 75;
+            adoption.AnimalId = animal.AnimalId;
+            adoption.ClientId = client.ClientId;
+            adoption.ApprovalStatus = "pending";
+            adoption.PaymentCollected = true;
+            db.Adoptions.InsertOnSubmit(adoption);
+            db.SubmitChanges();
+                
         }
 
         internal static IQueryable<Adoption> GetPendingAdoptions()
         {
-            throw new NotImplementedException();
+            return db.Adoptions;
         }
 
         internal static void UpdateAdoption(bool isAdopted, Adoption adoption)
-        {
-            throw new NotImplementedException();
+        { Adoption oldValues = null;
+             oldValues = db.Adoptions.Where(s => s.ClientId==adoption.ClientId&&s.AnimalId==adoption.AnimalId).FirstOrDefault();
+            oldValues.ApprovalStatus = isAdopted.ToString();
         }
 
         internal static void RemoveAdoption(int animalId, int clientId)
         {
-            throw new NotImplementedException();
+            Adoption adoption = null;
+            adoption = db.Adoptions.Where(s => s.AnimalId == animalId && s.ClientId == clientId).FirstOrDefault(); 
+                db.Adoptions.DeleteOnSubmit(adoption);
+            db.SubmitChanges();
         }
 
         // TODO: Shots Stuff
@@ -419,12 +409,13 @@ namespace HumaneSociety
             animalShots = db.AnimalShots.Where(s => s.AnimalId == animal.AnimalId);
             return animalShots;
 
-
         }
 
         internal static void UpdateShot(string shotName, Animal animal)
         {
+
             Shot shot = new Shot();
+
             shot.Name = shotName;
             db.Shots.InsertOnSubmit(shot);
             db.SubmitChanges();
@@ -434,7 +425,6 @@ namespace HumaneSociety
             animalShot.DateReceived = DateTime.Today;
             db.AnimalShots.InsertOnSubmit(animalShot);
             db.SubmitChanges();
-
 
         }
     }
