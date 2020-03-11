@@ -255,7 +255,7 @@ namespace HumaneSociety
                 }
             }
 
-            //db.SubmitChanges();
+            db.SubmitChanges();
         } 
 
 
