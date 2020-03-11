@@ -166,7 +166,29 @@ namespace HumaneSociety
         // TODO: Allow any of the CRUD operations to occur here
         internal static void RunEmployeeQueries(Employee employee, string crudOperation)
         {
-            // employee = db.Emp
+
+            
+            switch (crudOperation)
+            {
+                case "create":
+                    db.Employees.InsertOnSubmit(employee);
+                    break;
+                case "read":
+                    Console.WriteLine(employee.FirstName,employee.LastName,employee.EmployeeId);           
+                    break;
+                case "update":
+                    var thing = db.Employees.Where(s => s.EmployeeId == employee.EmployeeId);
+                    //var thing1 = db.Employees.Where(s => s.EmployeeNumber == employee.EmployeeNumber);
+                    db.SubmitChanges();
+                    return;
+                    //Double check update
+                case "delete":
+                    db.Employees.DeleteOnSubmit(employee);
+                    break;
+                 
+            }
+            db.SubmitChanges();
+
 
 
 
@@ -279,23 +301,109 @@ namespace HumaneSociety
         // TODO: Animal Multi-Trait Search
         internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
         {
-            throw new NotImplementedException();
+            IQueryable<Animal> thing = null;
+            foreach(KeyValuePair<int,string> update in updates)
+            {
+                switch (update.Key)
+                { case 1:
+                        thing = db.Animals.Where(s => s.Category.Name == update.Value);
+                        return thing;
+                  case 2:
+                        thing = db.Animals.Where(s => s.Name == update.Value);
+                        return thing;
+                    case 3:
+                        thing = db.Animals.Where(s => s.Age == int.Parse(update.Value));
+                        return thing;
+                    case 4:
+                        thing = db.Animals.Where(s => s.Demeanor == update.Value);
+                        return thing;
+                    case 5:
+                        thing = db.Animals.Where(s => s.KidFriendly == bool.Parse(update.Value));
+                        return thing;
+                    case 6:
+                        thing = db.Animals.Where(s => s.PetFriendly == bool.Parse(update.Value));
+                        return thing;
+                    case 7:
+                        thing = db.Animals.Where(s => s.Weight == int.Parse(update.Value));
+                        return thing;
+                    case 8:
+                        thing = db.Animals.Where(s => s.AnimalId == int.Parse(update.Value));
+                        return thing;
+                    case 9:
+                        thing = db.Animals.Where(s => s.Gender == update.Value);
+                        break;
+                    case 10:
+                        thing = db.Animals.Where(s => s.AdoptionStatus == update.Value);
+                        return thing;
+                    case 11:
+                        thing = db.Animals.Where(s => s.CategoryId == int.Parse(update.Value));
+                        return thing;
+                    case 12:
+                        thing = db.Animals.Where(s => s.DietPlanId == int.Parse(update.Value));
+                        return thing;
+                    case 13:
+                        thing = db.Animals.Where(s => s.EmployeeId == int.Parse(update.Value));
+                        return thing;
+                    default:
+                        Console.WriteLine("No match exists");
+                        return thing;
+
+                }
+                return null;
+                
+            }
+            return null;
+
         }
          
         // TODO: Misc Animal Things
         internal static int GetCategoryId(string categoryName)
         {
-            throw new NotImplementedException();
+            switch (categoryName)
+            {
+                case "Cats":
+                    return 1;
+                case "Dogs":
+                    return 2;
+                case "Birds":
+                    return 3;
+                case "Fish":
+                    return 4;
+                case "Reptiles":
+                    return 5;
+                default:
+                    Console.WriteLine("Input does not correspond to a Known category.");
+                    return 0;
+            }
+            
         }
-        
+      
         internal static Room GetRoom(int animalId)
         {
-            throw new NotImplementedException();
+            Room getRoom = db.Rooms.Where(s => s.AnimalId == animalId).SingleOrDefault();
+            return getRoom;
+            
         }
         
         internal static int GetDietPlanId(string dietPlanName)
         {
-            throw new NotImplementedException();
+            switch (dietPlanName)
+            {
+                case "KittySlect":
+                    return 1;
+                case "Wildheart":
+                    return 2;
+                case "SelectSeed":
+                    return 3;
+                case "FreshFlakes":
+                    return 4;
+                case "Live Bait":
+                    return 5;
+                default:
+                    Console.WriteLine("Diet Plan is unavailable");
+                    return 0;
+            }
+            
         }
 
         // TODO: Adoption CRUD Operations
@@ -322,7 +430,16 @@ namespace HumaneSociety
         // TODO: Shots Stuff
         internal static IQueryable<AnimalShot> GetShots(Animal animal)
         {
-            throw new NotImplementedException();
+
+            IQueryable<AnimalShot> animalShots = null;
+            animalShots = db.AnimalShots.Where(s => s.AnimalId == animal.AnimalId);
+            return animalShots;
+            //   Console.WriteLine(employee.FirstName, employee.LastName, employee.EmployeeId);
+
+
+
+
+
         }
 
         internal static void UpdateShot(string shotName, Animal animal)
