@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace HumaneSociety
 {
     public static class Query
-    {        
+    {
         static HumaneSocietyDataContext db;
 
         static Query()
@@ -17,11 +17,11 @@ namespace HumaneSociety
 
         internal static List<USState> GetStates()
         {
-            List<USState> allStates = db.USStates.ToList();       
+            List<USState> allStates = db.USStates.ToList();
 
             return allStates;
         }
-            
+
         internal static Client GetClient(string userName, string password)
         {
             Client client = db.Clients.Where(c => c.UserName == userName && c.Password == password).Single();
@@ -55,7 +55,7 @@ namespace HumaneSociety
                 newAddress.AddressLine1 = streetAddress;
                 newAddress.City = null;
                 newAddress.USStateId = stateId;
-                newAddress.Zipcode = zipCode;                
+                newAddress.Zipcode = zipCode;
 
                 db.Addresses.InsertOnSubmit(newAddress);
                 db.SubmitChanges();
@@ -80,13 +80,13 @@ namespace HumaneSociety
             {
                 clientFromDb = db.Clients.Where(c => c.ClientId == clientWithUpdates.ClientId).Single();
             }
-            catch(InvalidOperationException e)
+            catch (InvalidOperationException e)
             {
                 Console.WriteLine("No clients have a ClientId that matches the Client passed in.");
                 Console.WriteLine("No update have been made.");
                 return;
             }
-            
+
             // update clientFromDb information with the values on clientWithUpdates (aside from address)
             clientFromDb.FirstName = clientWithUpdates.FirstName;
             clientFromDb.LastName = clientWithUpdates.LastName;
@@ -101,13 +101,13 @@ namespace HumaneSociety
             Address updatedAddress = db.Addresses.Where(a => a.AddressLine1 == clientAddress.AddressLine1 && a.USStateId == clientAddress.USStateId && a.Zipcode == clientAddress.Zipcode).FirstOrDefault();
 
             // if the address isn't found in the Db, create and insert it
-            if(updatedAddress == null)
+            if (updatedAddress == null)
             {
                 Address newAddress = new Address();
                 newAddress.AddressLine1 = clientAddress.AddressLine1;
                 newAddress.City = null;
                 newAddress.USStateId = clientAddress.USStateId;
-                newAddress.Zipcode = clientAddress.Zipcode;                
+                newAddress.Zipcode = clientAddress.Zipcode;
 
                 db.Addresses.InsertOnSubmit(newAddress);
                 db.SubmitChanges();
@@ -117,11 +117,11 @@ namespace HumaneSociety
 
             // attach AddressId to clientFromDb.AddressId
             clientFromDb.AddressId = updatedAddress.AddressId;
-            
+
             // submit changes
             db.SubmitChanges();
         }
-        
+
         internal static void AddUsernameAndPassword(Employee employee)
         {
             Employee employeeFromDb = db.Employees.Where(e => e.EmployeeId == employee.EmployeeId).FirstOrDefault();
@@ -162,10 +162,12 @@ namespace HumaneSociety
 
 
         //// TODO Items: ////
-        
+
         // TODO: Allow any of the CRUD operations to occur here
         internal static void RunEmployeeQueries(Employee employee, string crudOperation)
         {
+
+            
             switch (crudOperation)
             {
                 case "create":
@@ -179,7 +181,7 @@ namespace HumaneSociety
                     //var thing1 = db.Employees.Where(s => s.EmployeeNumber == employee.EmployeeNumber);
                     db.SubmitChanges();
                     return;
-                    //Double check updates
+                    //Double check update
                 case "delete":
                     db.Employees.DeleteOnSubmit(employee);
                     break;
@@ -187,27 +189,113 @@ namespace HumaneSociety
             }
             db.SubmitChanges();
 
+
+
+
+            //throw new NotImplementedException();
         }
 
         // TODO: Animal CRUD Operations
         internal static void AddAnimal(Animal animal)
         {
-            throw new NotImplementedException();
+            db.Animals.InsertOnSubmit(animal);
+            db.SubmitChanges();
         }
 
         internal static Animal GetAnimalByID(int id)
         {
-            throw new NotImplementedException();
+            var thing = db.Animals.Where(s => s.AnimalId == id).SingleOrDefault();
+            Console.WriteLine("Animal Info:" + thing.AnimalId + " " + thing.Name + " " + thing.Category.Name.ToString());
+            Console.ReadLine(); return thing;
         }
 
         internal static void UpdateAnimal(int animalId, Dictionary<int, string> updates)
-        {            
-            throw new NotImplementedException();
-        }
+        {
+
+            Animal animalFromDb = null;
+
+            try
+            {
+                animalFromDb = db.Animals.Where(s => s.AnimalId == animalId).SingleOrDefault();
+            }
+            catch (InvalidOperationException e)
+            {
+                Console.WriteLine("No animals have a animalId that matches the animal passed in.");
+                Console.WriteLine("No update have been made.");
+                return;
+            }
+            foreach (KeyValuePair<int, string> update in updates)
+            {
+                switch (update.Key)
+                {
+                    case 1:
+                        animalFromDb.Category.Name = update.Value;
+                        break;
+
+                    case 2:
+                        animalFromDb.Name = update.Value;
+                        break;
+
+                    case 3:
+                        animalFromDb.Age = int.Parse(update.Value);
+                        break;
+                    case 4:
+                        animalFromDb.Demeanor = update.Value;
+                        break;
+                    case 5:
+                        switch (update.Value.ToLower())
+                        {
+                            case "yes":
+                            case "yeah":
+                            case "y":
+                            case "yea":
+                                animalFromDb.KidFriendly = true;
+                                break;
+                            default:
+                                animalFromDb.KidFriendly = false;
+                                break;
+                        } break;
+                    case 6:
+                        switch (update.Value.ToLower())
+                        {
+                            case "yes":
+                            case "yeah":
+                            case "y":
+                            case "yea":
+                                animalFromDb.PetFriendly = true;
+                                break;
+                            default:
+                                animalFromDb.PetFriendly = false;
+                                break;
+                        }
+                        break;
+                    case 7:
+                        animalFromDb.Weight = int.Parse(update.Value);
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            db.SubmitChanges();
+        } 
+
+
+
+
+
+
+                
+            
+            
+
+        
+
 
         internal static void RemoveAnimal(Animal animal)
         {
-            throw new NotImplementedException(); 
+            db.Animals.DeleteOnSubmit(animal);
+            db.SubmitChanges();
         }
         
         // TODO: Animal Multi-Trait Search
@@ -342,9 +430,11 @@ namespace HumaneSociety
         // TODO: Shots Stuff
         internal static IQueryable<AnimalShot> GetShots(Animal animal)
         {
+
             IQueryable<AnimalShot> animalShots = null;
             animalShots = db.AnimalShots.Where(s => s.AnimalId == animal.AnimalId);
             return animalShots;
+
 
         }
 
