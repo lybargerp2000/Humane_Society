@@ -214,7 +214,59 @@ namespace HumaneSociety
         // TODO: Animal Multi-Trait Search
         internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
         {
-            //throw new NotImplementedException();
+            IQueryable<Animal> thing = null;
+            foreach(KeyValuePair<int,string> update in updates)
+            {
+                switch (update.Key)
+                { case 1:
+                        thing = db.Animals.Where(s => s.Category.Name == update.Value);
+                        return thing;
+                  case 2:
+                        thing = db.Animals.Where(s => s.Name == update.Value);
+                        return thing;
+                    case 3:
+                        thing = db.Animals.Where(s => s.Age == int.Parse(update.Value));
+                        return thing;
+                    case 4:
+                        thing = db.Animals.Where(s => s.Demeanor == update.Value);
+                        return thing;
+                    case 5:
+                        thing = db.Animals.Where(s => s.KidFriendly == bool.Parse(update.Value));
+                        return thing;
+                    case 6:
+                        thing = db.Animals.Where(s => s.PetFriendly == bool.Parse(update.Value));
+                        return thing;
+                    case 7:
+                        thing = db.Animals.Where(s => s.Weight == int.Parse(update.Value));
+                        return thing;
+                    case 8:
+                        thing = db.Animals.Where(s => s.AnimalId == int.Parse(update.Value));
+                        return thing;
+                    case 9:
+                        thing = db.Animals.Where(s => s.Gender == update.Value);
+                        break;
+                    case 10:
+                        thing = db.Animals.Where(s => s.AdoptionStatus == update.Value);
+                        return thing;
+                    case 11:
+                        thing = db.Animals.Where(s => s.CategoryId == int.Parse(update.Value));
+                        return thing;
+                    case 12:
+                        thing = db.Animals.Where(s => s.DietPlanId == int.Parse(update.Value));
+                        return thing;
+                    case 13:
+                        thing = db.Animals.Where(s => s.EmployeeId == int.Parse(update.Value));
+                        return thing;
+                    //default:
+                    //    Console.WriteLine("No match exists");
+                    //    return thing;
+
+                }
+                return null;
+                
+            }
+            return null;
+
         }
          
         // TODO: Misc Animal Things
