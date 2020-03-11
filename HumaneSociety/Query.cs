@@ -170,7 +170,7 @@ namespace HumaneSociety
             {
                 case "create":
                     db.Employees.InsertOnSubmit(employee);
-                    db.SubmitChanges();
+                    //db.SubmitChanges();
                     break;
                 case "read":
                     Console.WriteLine(employee.FirstName,employee.LastName,employee.EmployeeId);           
@@ -178,14 +178,15 @@ namespace HumaneSociety
                 case "update":
                     var thing = db.Employees.Where(s => s.EmployeeId == employee.EmployeeId);
                     thing = employee.;//Finish on Wednesday
-                    db.SubmitChanges();
+                    //db.SubmitChanges();
                     break;
                     //Doule check in morning to ensure old value is removed
                 case "delete":
                     db.Employees.DeleteOnSubmit(employee);
-                    db.SubmitChanges();
                     break;
+                 
             }
+            db.SubmitChanges();
 
         }
 
@@ -213,7 +214,7 @@ namespace HumaneSociety
         // TODO: Animal Multi-Trait Search
         internal static IQueryable<Animal> SearchForAnimalsByMultipleTraits(Dictionary<int, string> updates) // parameter(s)?
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
          
         // TODO: Misc Animal Things
@@ -222,27 +223,48 @@ namespace HumaneSociety
             switch (categoryName)
             {
                 case "Cats":
-                    db.Categories.
-                    
-                    break;
-                    
+                    return 1;
+                case "Dogs":
+                    return 2;
+                case "Birds":
+                    return 3;
+                case "Fish":
+                    return 4;
+                case "Reptiles":
+                    return 5;
+                default:
+                    Console.WriteLine("Input does not correspond to a Known category.");
+                    return 0;
             }
             
-                
-
-
-
-            //throw new NotImplementedException();
         }
       
         internal static Room GetRoom(int animalId)
         {
-            throw new NotImplementedException();
+            Room getRoom = db.Rooms.Where(s => s.AnimalId == animalId).SingleOrDefault();
+            return getRoom;
+            
         }
         
         internal static int GetDietPlanId(string dietPlanName)
         {
-            throw new NotImplementedException();
+            switch (dietPlanName)
+            {
+                case "KittySlect":
+                    return 1;
+                case "Wildheart":
+                    return 2;
+                case "SelectSeed":
+                    return 3;
+                case "FreshFlakes":
+                    return 4;
+                case "Live Bait":
+                    return 5;
+                default:
+                    Console.WriteLine("Diet Plan is unavailable");
+                    return 0;
+            }
+            
         }
 
         // TODO: Adoption CRUD Operations
