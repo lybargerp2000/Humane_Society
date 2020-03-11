@@ -407,16 +407,20 @@ namespace HumaneSociety
             IQueryable<AnimalShot> animalShots = null;
             animalShots = db.AnimalShots.Where(s => s.AnimalId == animal.AnimalId);
             return animalShots;
+<<<<<<< HEAD
             
 
 
 
+=======
+>>>>>>> a32f710333b93df5703c62da732a00264caaa052
 
 
         }
 
         internal static void UpdateShot(string shotName, Animal animal)
         {
+<<<<<<< HEAD
             Shot shot = new Shot() ;
             shot.Name = shotName;
             db.Shots.InsertOnSubmit(shot);
@@ -429,6 +433,9 @@ namespace HumaneSociety
             db.SubmitChanges();
 
 
+=======
+            
+>>>>>>> a32f710333b93df5703c62da732a00264caaa052
         }
     }
 }
