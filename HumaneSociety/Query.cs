@@ -189,10 +189,6 @@ namespace HumaneSociety
             }
             db.SubmitChanges();
 
-
-
-
-            //throw new NotImplementedException();
         }
 
         // TODO: Animal CRUD Operations
@@ -279,18 +275,6 @@ namespace HumaneSociety
 
             db.SubmitChanges();
         } 
-
-
-
-
-
-
-                
-            
-            
-
-        
-
 
         internal static void RemoveAnimal(Animal animal)
         {
@@ -440,7 +424,18 @@ namespace HumaneSociety
 
         internal static void UpdateShot(string shotName, Animal animal)
         {
-            
+            Shot shot = new Shot();
+            shot.Name = shotName;
+            db.Shots.InsertOnSubmit(shot);
+            db.SubmitChanges();
+            AnimalShot animalShot = new AnimalShot();
+            animalShot.AnimalId = animal.AnimalId;
+            animalShot.ShotId = shot.ShotId;
+            animalShot.DateReceived = DateTime.Today;
+            db.AnimalShots.InsertOnSubmit(animalShot);
+            db.SubmitChanges();
+
+
         }
     }
 }
