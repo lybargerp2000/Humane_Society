@@ -219,12 +219,22 @@ namespace HumaneSociety
         // TODO: Misc Animal Things
         internal static int GetCategoryId(string categoryName)
         {
-            var thing = db.Categories.Select(c => c.CategoryId);
-            return CategoryID;
+            switch (categoryName)
+            {
+                case "Cats":
+                    db.Categories.
+                    
+                    break;
+                    
+            }
+            
+                
+
+
 
             //throw new NotImplementedException();
         }
-        
+      
         internal static Room GetRoom(int animalId)
         {
             throw new NotImplementedException();
