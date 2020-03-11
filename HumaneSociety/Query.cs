@@ -170,17 +170,16 @@ namespace HumaneSociety
             {
                 case "create":
                     db.Employees.InsertOnSubmit(employee);
-                    //db.SubmitChanges();
                     break;
                 case "read":
                     Console.WriteLine(employee.FirstName,employee.LastName,employee.EmployeeId);           
                     break;
                 case "update":
                     var thing = db.Employees.Where(s => s.EmployeeId == employee.EmployeeId);
-                    thing = employee.;//Finish on Wednesday
-                    //db.SubmitChanges();
-                    break;
-                    //Doule check in morning to ensure old value is removed
+                    //var thing1 = db.Employees.Where(s => s.EmployeeNumber == employee.EmployeeNumber);
+                    db.SubmitChanges();
+                    return;
+                    //Double check updates
                 case "delete":
                     db.Employees.DeleteOnSubmit(employee);
                     break;
@@ -208,7 +207,7 @@ namespace HumaneSociety
 
         internal static void RemoveAnimal(Animal animal)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException(); 
         }
         
         // TODO: Animal Multi-Trait Search
@@ -257,9 +256,9 @@ namespace HumaneSociety
                     case 13:
                         thing = db.Animals.Where(s => s.EmployeeId == int.Parse(update.Value));
                         return thing;
-                    //default:
-                    //    Console.WriteLine("No match exists");
-                    //    return thing;
+                    default:
+                        Console.WriteLine("No match exists");
+                        return thing;
 
                 }
                 return null;
@@ -343,7 +342,18 @@ namespace HumaneSociety
         // TODO: Shots Stuff
         internal static IQueryable<AnimalShot> GetShots(Animal animal)
         {
-            throw new NotImplementedException();
+            //IQueryable<Animal> thing = null;
+            IQueryable<AnimalShot> animalShot = null;
+            
+            animalShot = db.AnimalShots.Where(s =< s.animal == animalShot);
+            animalShot.db.AnimalId = animal.AnimalId;
+            return animalShot;
+            //   Console.WriteLine(employee.FirstName, employee.LastName, employee.EmployeeId);
+
+
+
+
+
         }
 
         internal static void UpdateShot(string shotName, Animal animal)
