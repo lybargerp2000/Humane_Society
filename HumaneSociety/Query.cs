@@ -342,12 +342,12 @@ namespace HumaneSociety
         // TODO: Shots Stuff
         internal static IQueryable<AnimalShot> GetShots(Animal animal)
         {
-            //IQueryable<Animal> thing = null;
-            IQueryable<AnimalShot> animalShot = null;
+
+            AnimalShot animalShot = new AnimalShot();
             
-            animalShot = db.AnimalShots.Where(s =< s.animal == animalShot);
-            animalShot.db.AnimalId = animal.AnimalId;
-            return animalShot;
+            animalShot.ShotId = animal.Category.CategoryId;
+            animalShot.AnimalId = animal.AnimalId;
+            yield return animalShot;
             //   Console.WriteLine(employee.FirstName, employee.LastName, employee.EmployeeId);
 
 
