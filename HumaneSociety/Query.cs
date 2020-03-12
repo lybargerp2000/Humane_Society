@@ -196,6 +196,7 @@ namespace HumaneSociety
                  
             }
             db.SubmitChanges();
+
         }
 
         // TODO: Animal CRUD Operations
@@ -260,7 +261,7 @@ namespace HumaneSociety
             }
 
             db.SubmitChanges();
-                }
+        }
         internal static void RemoveAnimal(Animal animal)
         {
             db.Animals.DeleteOnSubmit(animal);
@@ -415,14 +416,24 @@ namespace HumaneSociety
             IQueryable<AnimalShot> animalShots = null;
             animalShots = db.AnimalShots.Where(s => s.AnimalId == animal.AnimalId);
             return animalShots;
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 9e5f7e5ec5f5dc6eeacc46e91db61900bf7dc18c
 
         }
 
         internal static void UpdateShot(string shotName, Animal animal)
+<<<<<<< HEAD
         { 
             Shot shot = new Shot() ;
+=======
+        {
+
+            Shot shot = new Shot();
+
+>>>>>>> 9e5f7e5ec5f5dc6eeacc46e91db61900bf7dc18c
             shot.Name = shotName;
             db.Shots.InsertOnSubmit(shot);
             db.SubmitChanges();
@@ -433,8 +444,11 @@ namespace HumaneSociety
             db.AnimalShots.InsertOnSubmit(animalShot);
             db.SubmitChanges();
 
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 9e5f7e5ec5f5dc6eeacc46e91db61900bf7dc18c
         }
     }
 }
