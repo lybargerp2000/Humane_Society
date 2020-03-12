@@ -1,0 +1,36 @@
+insert into Clients values( 'Helen','Hackles', 'HHackles1','lovepets12', null, 'smokoy123@gmail.com');
+insert into Clients values( 'Harold','Hackles', 'HHackles2','lovemywife32', null, '32yearsandcounting@gmail.com');
+insert into Clients values( 'Paul','Nevins', 'PNevins1','hackerman789', null, 'iloveanime789@gmail.com');
+insert into Clients values( 'Shaggy','Powers', 'SPowers1','wellthen123', null, 'alwayssnacking987@gmail.com');
+insert into Clients values( 'Red','Foreman', 'RForeman','kenosha', null, 'footup211@gmail.com');
+Insert into Rooms values(101,5);
+Insert into Rooms values(102,2);
+Insert into Rooms values(103,3);
+Insert into Rooms values(104,4);
+Insert into Rooms values(105,1);
+Insert into Rooms values(106,null);
+Insert into Rooms values(107,null);
+Insert into Rooms values(108,null);
+Insert into Rooms values(109,null);
+Insert into Rooms values(110,null);
+
+Insert into Animals values( 'Spike', 120,7,'loving, playful',1,0,'Male', 'Open',2,2,2);
+Insert into Animals values( 'Guts', 15,10,'sneaky',0,0,'Male', 'Open',1,1,1);
+Insert into Animals values( 'blinky', 1,1,'flighty, fickle',1,1,'Female', 'Open',4,4,4);
+Insert into Animals values( 'Harley', 3,15,'Talkative',1,1,'Female', 'Open',3,3,3);
+Insert into Animals values( 'Herb', 30,20,'coldblooded',0,0,'Male', 'Open',5,5,5);
+insert into Employees values ('Nicholas', 'Maclkby', 'employee_1', '1234567', 1,'somnthspcl123@gmail.com');
+insert into Employees values ('Mac', 'Nichols', 'employee_2', 'abcdefg', 2,'overcommit123@gmail.com');
+insert into Employees values ('Kent', 'Rodgers', 'employee_3', '1234567', 3,'lovefish321@gmail.com');
+insert into Employees values ('Alexis', 'Boom', 'employee_4', 'abcdefg', 4,'cleanresume213@gmail.com');
+insert into Employees values ('Sandra', 'Sharons', 'employee_5', '1234567', 5,'gopack312@gmail.com');
+Insert INTO Categories values('Cats');
+Insert INTO Categories values('Dogs');
+Insert INTO Categories values('Birds');
+Insert INTO Categories values('Fish');
+Insert INTO Categories values('Reptiles');
+Insert into DietPlans values ('KittySelect','Cat Food',3)
+Insert into DietPlans values ('Wildheart','Dog Food',4)
+Insert into DietPlans values ('SelectSeed','Bird Feed',2)
+Insert into DietPlans values ('FreshFlakes','Fish Food',1)
+Insert into DietPlans values ('Live Bait','Reptile Food',2)

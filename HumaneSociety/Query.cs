@@ -177,10 +177,18 @@ namespace HumaneSociety
                     Console.WriteLine(employee.FirstName,employee.LastName,employee.EmployeeId);           
                     break;
                 case "update":
-                    var thing = db.Employees.Where(s => s.EmployeeId == employee.EmployeeId);
+
+                    Employee thing = null;
+                     thing = db.Employees.Where(s => s.EmployeeId == employee.EmployeeId).FirstOrDefault();
+                    thing.EmployeeNumber = employee.EmployeeNumber;
+                    thing.FirstName = employee.FirstName;
+                    thing.LastName = employee.LastName;
+                    thing.Password = employee.Password;
+                    thing.UserName = employee.UserName;
+                    thing.Email = employee.Email;
                     
-                    //animalFromDb.Category.Name = update.Value;
-                    //var thing1 = db.Employees.Where(s => s.EmployeeNumber == employee.EmployeeNumber);
+                    
+
                     db.SubmitChanges();
                     return;
                     //Double check update
@@ -193,7 +201,7 @@ namespace HumaneSociety
 
         }
 
-        // TODO: Animal CRUD Operations
+
         internal static void AddAnimal(Animal animal)
         {
             db.Animals.InsertOnSubmit(animal);
@@ -411,12 +419,14 @@ namespace HumaneSociety
             animalShots = db.AnimalShots.Where(s => s.AnimalId == animal.AnimalId);
             return animalShots;
 
+
         }
 
         internal static void UpdateShot(string shotName, Animal animal)
-        {
 
-            Shot shot = new Shot();
+        { 
+            Shot shot = new Shot() ;
+
 
             shot.Name = shotName;
             db.Shots.InsertOnSubmit(shot);
