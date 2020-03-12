@@ -177,8 +177,16 @@ namespace HumaneSociety
                     Console.WriteLine(employee.FirstName,employee.LastName,employee.EmployeeId);           
                     break;
                 case "update":
-                    var thing = db.Employees.Where(s => s.EmployeeId == employee.EmployeeId);
-                    //var thing1 = db.Employees.Where(s => s.EmployeeNumber == employee.EmployeeNumber);
+                    Employee thing = null;
+                     thing = db.Employees.Where(s => s.EmployeeId == employee.EmployeeId).FirstOrDefault();
+                    thing.EmployeeNumber = employee.EmployeeNumber;
+                    thing.FirstName = employee.FirstName;
+                    thing.LastName = employee.LastName;
+                    thing.Password = employee.Password;
+                    thing.UserName = employee.UserName;
+                    thing.Email = employee.Email;
+                    
+                    
                     db.SubmitChanges();
                     return;
                     //Double check update
@@ -407,20 +415,13 @@ namespace HumaneSociety
             IQueryable<AnimalShot> animalShots = null;
             animalShots = db.AnimalShots.Where(s => s.AnimalId == animal.AnimalId);
             return animalShots;
-<<<<<<< HEAD
-            
 
-
-
-=======
->>>>>>> a32f710333b93df5703c62da732a00264caaa052
 
 
         }
 
         internal static void UpdateShot(string shotName, Animal animal)
-        {
-<<<<<<< HEAD
+        { 
             Shot shot = new Shot() ;
             shot.Name = shotName;
             db.Shots.InsertOnSubmit(shot);
@@ -433,9 +434,7 @@ namespace HumaneSociety
             db.SubmitChanges();
 
 
-=======
-            
->>>>>>> a32f710333b93df5703c62da732a00264caaa052
+
         }
     }
 }
