@@ -178,6 +178,8 @@ namespace HumaneSociety
                     break;
                 case "update":
                     var thing = db.Employees.Where(s => s.EmployeeId == employee.EmployeeId);
+                    
+                    //animalFromDb.Category.Name = update.Value;
                     //var thing1 = db.Employees.Where(s => s.EmployeeNumber == employee.EmployeeNumber);
                     db.SubmitChanges();
                     return;
